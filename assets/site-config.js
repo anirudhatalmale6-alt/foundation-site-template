@@ -25,7 +25,7 @@ window.SITE_CONFIG = {
      There is a helper page next to this file - open setup.html in a browser,
      paste the link, and it checks it and writes this line out for you.
      ───────────────────────────────────────────────────────────────────────── */
-  DONATE_URL: "",
+  DONATE_URL: "https://www.clover.com/pay-widgets/029243bb-4101-4bfa-94c8-bc65ac846577",
 
   /* Where the money goes, in words. Shown under the donate button so a donor
      knows who is taking the payment before they click away to Clover. */
