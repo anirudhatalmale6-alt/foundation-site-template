@@ -223,6 +223,18 @@ h3{font-size:clamp(21px,2.4vw,27px);line-height:1.25}
 @media(min-width:940px){
   .hero-grid{grid-template-columns:1.35fr .65fr;align-items:end;gap:60px}
 }
+/* The hero logo. White-backed like the original artwork, on a soft card so it
+   sits on the navy without a hard rectangle edge. Sized in vw so it is
+   generous on a phone and does not dominate a desktop. */
+.hero-logo{
+  width:clamp(108px,17vw,168px);
+  height:auto;border-radius:14px;
+  background:#fff;padding:10px;
+  box-shadow:0 18px 44px rgba(3,10,28,.42);
+  margin-bottom:26px;
+}
+@media(min-width:940px){.hero-logo{margin-bottom:30px}}
+
 .hero h1{color:#fff;margin:16px 0 26px;max-width:15ch}
 .hero h1 em{
   font-style:italic;color:#F0C86A;
@@ -494,6 +506,13 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--gold);outline-off
   <div class="wrap hero-in">
     <div class="hero-grid">
       <div>
+        <!-- The logo, at size, in the hero. It is the foundation's strongest
+             visual asset and the only one we have until their photographs
+             arrive, so it earns the space rather than sitting at 46px in the
+             bar. It is decorative here - the name is already in the heading
+             and the header - so it carries an empty alt and is hidden from
+             screen readers rather than read out twice. -->
+        <img class="hero-logo rv" src="assets/logo.jpg" alt="" aria-hidden="true">
         <div class="eyebrow on-navy rv"><span class="dot"></span> SImACT Legacy Foundation</div>
         <h1 class="rv rv-1">Long-term impact,<br>not short-term <em>solutions</em>.</h1>
         <p class="hero-lede rv rv-2">
