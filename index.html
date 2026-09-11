@@ -419,6 +419,15 @@ section{position:relative}
 .contact-item .v{font-size:1rem;line-height:1.6;color:var(--ink)}
 
 /* ── Footer ─────────────────────────────────────────────────────────────── */
+.contact-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.contact-btn{
+  display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:2px;
+  font-size:.88rem;font-weight:600;background:var(--navy);color:#fff;
+  transition:background .2s ease,transform .2s ease;
+}
+.contact-btn:hover{background:var(--navy-deep);transform:translateY(-1px)}
+.contact-btn.alt{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.contact-btn.alt:hover{background:var(--sand)}
 .footer{background:var(--navy-deep);color:rgba(255,255,255,.7);padding:64px 0 30px}
 .footer-top{display:grid;gap:36px;padding-bottom:38px;border-bottom:1px solid rgba(255,255,255,.13)}
 @media(min-width:860px){.footer-top{grid-template-columns:1.4fr 1fr 1fr;gap:48px}}
@@ -758,9 +767,16 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--gold);outline-off
   <div class="wrap">
     <div class="rv" style="max-width:56ch">
       <div class="eyebrow"><span class="dot"></span> Contact</div>
-      <h2>Start a conversation.</h2>
+      <!-- The heading used to read "Start a conversation." with nothing under it
+           to start one with. Linda reported exactly that: "The Start a
+           conversation section does not work." She was right - it was a promise
+           the page could not keep. The heading now describes what is actually
+           there, and a real way to make contact appears the moment there is one
+           to offer. Same rule as the donate button: no dead controls. -->
+      <h2 id="contactHead">Where to find us.</h2>
     </div>
     <div class="contact-grid rv rv-1" id="contactGrid"></div>
+    <div class="contact-actions rv rv-2" id="contactActions"></div>
   </div>
 </section>
 
@@ -896,6 +912,30 @@ a:focus-visible,button:focus-visible{outline:2.5px solid var(--gold);outline-off
     return '<div class="contact-item"><div class="k">' + esc(r[0]) +
            '</div><div class="v">' + esc(r[1]) + '</div></div>';
   }).join('');
+
+  /* Something to actually press - but only when there is somewhere for it to
+     go. An email button with no mailbox behind it, or a WhatsApp button with no
+     number, is the same failure as a donate button with no payment link. */
+  var actions = [];
+  if (CFG.CONTACT_EMAIL) {
+    actions.push('<a class="contact-btn" href="mailto:' + esc(CFG.CONTACT_EMAIL) + '">' +
+                 '\u2709\uFE0F Email the Foundation</a>');
+  }
+  if (CFG.CONTACT_WHATSAPP) {
+    var wa = String(CFG.CONTACT_WHATSAPP).replace(/\D/g, '');
+    actions.push('<a class="contact-btn alt" target="_blank" rel="noopener noreferrer" ' +
+                 'href="https://wa.me/' + wa + '">\uD83D\uDCAC WhatsApp</a>');
+  } else if (CFG.CONTACT_PHONE) {
+    actions.push('<a class="contact-btn alt" href="tel:' +
+                 esc(String(CFG.CONTACT_PHONE).replace(/[^\d+]/g, '')) +
+                 '">\uD83D\uDCDE ' + esc(CFG.CONTACT_PHONE) + '</a>');
+  }
+  document.getElementById('contactActions').innerHTML = actions.join('');
+
+  /* If there is a way to make contact, the heading may invite one. If there is
+     not, it says where they are and nothing more. */
+  var head = document.getElementById('contactHead');
+  if (head && actions.length) head.textContent = 'Start a conversation.';
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {

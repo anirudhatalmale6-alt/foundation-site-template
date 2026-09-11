@@ -58,6 +58,10 @@ window.SITE_CONFIG = {
      contact page that nobody reads is worse than no address. */
   CONTACT_EMAIL: "",
   CONTACT_PHONE: "",
+  /* A WhatsApp number turns on a WhatsApp button in the contact section. In
+     digits with the country code, no plus and no spaces - e.g. "50912345678".
+     Left empty means no button, rather than a button that goes nowhere. */
+  CONTACT_WHATSAPP: "",
 
   /* ─────────────────────────────────────────────────────────────────────────
      4. THE NUMBERS
